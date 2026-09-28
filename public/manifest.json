@@ -1,0 +1,22 @@
+{
+  "name": "Pioneers Investments",
+  "short_name": "Pioneers",
+  "description": "Pioneers Investments - Fresh Products. Straight From Our Farms.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/image/logo/pioneers-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/image/logo/pioneers-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
