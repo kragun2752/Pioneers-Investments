@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pioneers Investments | Admin Dashboard</title>
+
+
+<link rel="stylesheet" href="css/admin.css">
+
+</head>
+
+
+<body>
+
+
+
+<script>
+
+
+// ADMIN LOGIN SECURITY
+
+if(localStorage.getItem("adminToken") !== "true"){
+
+    window.location.href="/admin-login.html";
+
+}
+
+
+</script>
+
+
+
+
+
+
+
+<div class="admin-wrapper">
+
+
+
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+
+
+<div class="admin-logo">
+
+<h1>
+PIONEERS
+</h1>
+
+<p>
+INVESTMENTS
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<button onclick="showSection('dashboard')">
+
+📊 Dashboard
+
+</button>
+
+
+
+
+
+<button onclick="showSection('products')">
+
+📦 Products
+
+</button>
+
+
+
+
+
+<button onclick="showSection('orders')">
+
+🛒 Orders
+
+</button>
+
+
+
+
+
+<button onclick="logout()">
+
+🚪 Logout
+
+</button>
+
+
+
+
+
+</aside>
+
+
+
+
+
+
+
+
+
+<!-- MAIN CONTENT -->
+
+
+
+<main class="admin-content">
+
+
+
+
+
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard">
+
+
+
+
+
+<div class="page-title">
+
+
+<h2>
+Dashboard Overview
+</h2>
+
+
+<p>
+Welcome back Admin
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="stats-grid">
+
+
+
+
+
+<div class="dashboard-card">
+
+<h3>
+Products
+</h3>
+
+
+<h1 id="total-products">
+0
+</h1>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="dashboard-card">
+
+<h3>
+Orders
+</h3>
+
+
+<h1 id="total-orders">
+0
+</h1>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="dashboard-card">
+
+<h3>
+Revenue
+</h3>
+
+
+<h1 id="total-revenue">
+MK 0
+</h1>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="dashboard-card">
+
+<h3>
+Customers
+</h3>
+
+
+<h1 id="total-customers">
+0
+</h1>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- CHARTS -->
+
+
+<div class="charts">
+
+
+
+
+
+<div class="glass-box">
+
+
+<h2>
+Revenue Analytics
+</h2>
+
+
+<canvas id="revenueChart"></canvas>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="glass-box">
+
+
+<h2>
+Sales Analytics
+</h2>
+
+
+<canvas id="salesChart"></canvas>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- ANALYTICS -->
+
+
+
+<div class="analytics-area">
+
+
+
+
+
+<div class="glass-box">
+
+
+<h2>
+⚠️ Low Stock
+</h2>
+
+
+<div id="low-stock">
+
+Loading...
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="glass-box">
+
+
+<h2>
+🏆 Best Selling
+
+</h2>
+
+
+<div id="best-selling">
+
+Loading...
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PRODUCTS -->
+
+
+
+<section id="products" class="hidden">
+
+
+
+
+
+<div class="page-title">
+
+
+<h2>
+Product Management
+</h2>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="glass-box">
+
+
+
+
+
+
+<form id="product-form"
+enctype="multipart/form-data">
+
+
+
+
+
+
+<input 
+type="hidden"
+id="product-id">
+
+
+
+
+
+
+
+<input
+id="name"
+placeholder="Product Name"
+required>
+
+
+
+
+
+
+
+
+<input
+id="category"
+placeholder="Category"
+required>
+
+
+
+
+
+
+
+
+<textarea
+id="description"
+placeholder="Description">
+
+</textarea>
+
+
+
+
+
+
+
+
+<input
+id="price"
+type="number"
+placeholder="Price"
+required>
+
+
+
+
+
+
+
+
+<input
+id="quantity"
+type="number"
+placeholder="Quantity"
+required>
+
+
+
+
+
+
+
+
+<input
+id="image"
+type="file">
+
+
+
+
+
+
+
+
+<img id="preview-image">
+
+
+
+
+
+
+
+
+<button type="submit">
+
+Save Product
+
+</button>
+
+
+
+
+
+
+</form>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<input
+id="search"
+placeholder="Search Products">
+
+
+
+
+
+
+
+
+
+<div id="products-list">
+
+Loading Products...
+
+</div>
+
+
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ORDERS -->
+
+
+
+<section id="orders" class="hidden">
+
+
+
+
+
+
+<div class="page-title">
+
+
+<h2>
+Customer Orders
+</h2>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div id="orders-list">
+
+Loading Orders...
+
+
+</div>
+
+
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+</main>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script src="js/admin.js"></script>
+
+
+
+
+</body>
+
+</html>
